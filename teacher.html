@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Teacher Attendance Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Teacher Attendance Panel</h2>
+
+<!-- ADD ATTENDANCE -->
+<h3>Add Attendance</h3>
+
+<input type="date" id="date">
+<br>
+
+<input type="text" id="roll" placeholder="Roll Number">
+<br>
+
+<select id="status">
+  <option value="Present">Present</option>
+  <option value="Absent">Absent</option>
+  <option value="Off">Off</option>
+</select>
+<br><br>
+
+<button onclick="addAttendance()">Add Attendance</button>
+
+<hr>
+
+<!-- VIEW ATTENDANCE -->
+<h3>View Attendance Report</h3>
+
+<input type="text" id="checkRoll" placeholder="Roll Number">
+<br><br>
+
+<button onclick="getAttendance()">View Report</button>
+
+<div id="output"></div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
