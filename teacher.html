@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Attendance Panel</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2>Add Attendance</h2>
+
+<input type="date" id="date">
+<input type="text" id="roll" placeholder="Roll Number">
+
+<select id="status">
+  <option value="Present">Present</option>
+  <option value="Absent">Absent</option>
+  <option value="Off">Off</option>
+</select>
+
+<button onclick="addAttendance()">Add</button>
+
+<hr>
+
+<h2>Check Attendance</h2>
+
+<input type="text" id="checkRoll" placeholder="Roll Number">
+<button onclick="getAttendance()">View Report</button>
+
+<div id="output"></div>
+
+<script src="script.js"></script>
+</body>
+</html>
