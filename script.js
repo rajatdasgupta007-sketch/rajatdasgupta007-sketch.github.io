@@ -18,7 +18,21 @@ function addAttendance() {
 }
 
 function getAttendance() {
-  alert("getAttendance function is running");
+  const roll = document.getElementById("checkRoll").value;
+
+  if (!roll) {
+    alert("Enter roll number");
+    return;
+  }
+
+  fetch(URL + "?roll=" + roll)
+    .then(response => response.text())
+    .then(text => {
+      document.getElementById("output").innerHTML = text;
+    })
+    .catch(error => {
+      alert("Error: " + error);
+    });
 }
   fetch(`${URL}?roll=${roll}`)
     .then(res => res.json())
