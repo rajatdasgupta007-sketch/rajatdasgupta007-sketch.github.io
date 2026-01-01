@@ -18,8 +18,8 @@ function addAttendance() {
 }
 
 function getAttendance() {
-  const roll = document.getElementById("checkRoll").value;
-
+  alert("getAttendance function is running");
+}
   fetch(`${URL}?roll=${roll}`)
     .then(res => res.json())
     .then(data => {
