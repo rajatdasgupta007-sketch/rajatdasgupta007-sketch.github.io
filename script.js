@@ -1,9 +1,7 @@
-// 🔹 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW
-const URL = "https://script.google.com/macros/s/AKfycbwT6XoLUn_aY259E4-A3rasr68vQnXaxFtRD9Oh0t9qlLlFI8b6ESx6rb4fCVwwVJFEFg/exec";
+// 🔴 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+const URL = "https://script.google.com/macros/s/AKfycbzaFykJ_Hy3Lp8SaH1-oo6nSXlvuPxPwZcbcVSN1jX6oQNs0M9xPZqu8EQ-yuWvipz2-g/exec";
 
-/* =========================
-   ADD ATTENDANCE
-========================= */
+// ADD ATTENDANCE
 function addAttendance() {
   const date = document.getElementById("date").value;
   const roll = document.getElementById("roll").value;
@@ -16,23 +14,17 @@ function addAttendance() {
 
   fetch(URL, {
     method: "POST",
-    body: JSON.stringify({
-      date: date,
-      roll: roll,
-      status: status
-    })
+    body: JSON.stringify({ date, roll, status })
   })
   .then(() => {
-    alert("Attendance added successfully");
+    alert("Attendance added");
   })
-  .catch(error => {
-    alert("Error adding attendance: " + error);
+  .catch(err => {
+    alert("Error: " + err);
   });
 }
 
-/* =========================
-   VIEW ATTENDANCE REPORT
-========================= */
+// VIEW ATTENDANCE
 function getAttendance() {
   const roll = document.getElementById("checkRoll").value;
 
@@ -42,17 +34,17 @@ function getAttendance() {
   }
 
   fetch(URL + "?roll=" + roll)
-    .then(response => response.json())
+    .then(res => res.json())
     .then(data => {
       document.getElementById("output").innerHTML = `
         <p>Total Days: ${data.total}</p>
-        <p>Present Days: ${data.present}</p>
-        <p>Absent Days: ${data.absent}</p>
+        <p>Present: ${data.present}</p>
+        <p>Absent: ${data.absent}</p>
         <p>Off Days: ${data.off}</p>
         <p><b>Attendance %: ${data.percent}</b></p>
       `;
     })
-    .catch(error => {
-      alert("Error fetching report: " + error);
+    .catch(err => {
+      alert("Error: " + err);
     });
 }
