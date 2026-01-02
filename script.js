@@ -1,5 +1,5 @@
 // 🔴 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
-const URL = "https://script.google.com/macros/s/AKfycbzaFykJ_Hy3Lp8SaH1-oo6nSXlvuPxPwZcbcVSN1jX6oQNs0M9xPZqu8EQ-yuWvipz2-g/exec";
+const URL = "https://script.google.com/macros/s/AKfycbwA7RKIz75-Mc4vfwgrc7u38ivZ8FO3VUfRo07Yeek5bzWBJTq0V85gVQNEOM77iBGlZg/exec";
 
 // ADD ATTENDANCE
 function addAttendance() {
