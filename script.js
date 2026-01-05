@@ -6,12 +6,10 @@ async function searchPlace() {
   }
 
   // ---------- FETCH LOCATION DATA ----------
-  const geoURL = `https://nominatim.openstreetmap.org/search?format=json&q=${place}&limit=1`;
+  const geoURL = `https://nominatim.openstreetmap.org/search?format=json&addressdetails=1&q=${place}&limit=1`;
 
   const geoRes = await fetch(geoURL, {
-    headers: {
-      "User-Agent": "GeoPortal-StudentProject"
-    }
+    headers: { "User-Agent": "GeoPortal-StudentProject" }
   });
 
   const geoData = await geoRes.json();
@@ -20,15 +18,40 @@ async function searchPlace() {
     return;
   }
 
-  document.getElementById("placeName").innerText =
-    geoData[0].display_name;
+  const data = geoData[0];
+  const address = data.address || {};
 
-  document.getElementById("lat").innerText = geoData[0].lat;
-  document.getElementById("lon").innerText = geoData[0].lon;
+  // ---------- BASIC INFO ----------
+  document.getElementById("placeName").innerText = data.display_name;
+  document.getElementById("lat").innerText = data.lat;
+  document.getElementById("lon").innerText = data.lon;
 
-  // ---------- PLACE IMAGE (WIKIMEDIA) ----------
+  document.getElementById("country").innerText =
+    address.country || "N/A";
+
+  document.getElementById("state").innerText =
+    address.state || address.region || "N/A";
+
+  document.getElementById("type").innerText =
+    data.type ? data.type.toUpperCase() : "N/A";
+
+  // ---------- CLIMATE (BASIC LOGIC) ----------
+  const lat = Math.abs(parseFloat(data.lat));
+  let climate = "Temperate";
+
+  if (lat < 23.5) climate = "Tropical";
+  else if (lat > 66.5) climate = "Polar";
+
+  document.getElementById("climate").innerText = climate;
+
+  // ---------- ELEVATION ----------
+  document.getElementById("elevation").innerText =
+    data.extratags && data.extratags.ele
+      ? data.extratags.ele + " m"
+      : "Data not available";
+
+  // ---------- IMAGE (WIKIMEDIA) ----------
   const img = document.getElementById("placeImage");
-
   img.src = `https://upload.wikimedia.org/wikipedia/commons/8/80/${place.replace(/ /g, "_")}.jpg`;
 
   img.onerror = () => {
@@ -36,10 +59,9 @@ async function searchPlace() {
       "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
   };
 
-  // ---------- FLORA & FAUNA TEXT ----------
+  // ---------- FLORA & FAUNA ----------
   document.getElementById("floraFauna").innerText =
-    "The region supports diverse flora and fauna influenced by its climate, terrain, and geographical location.";
+    "The flora and fauna of this region depend on its climate, elevation, and geographical location.";
 
-  // ---------- SHOW RESULT ----------
   document.getElementById("result").style.display = "block";
 }
