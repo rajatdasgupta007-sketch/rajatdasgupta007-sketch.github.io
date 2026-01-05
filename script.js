@@ -1,50 +1,37 @@
+async function searchPlace() {
+  const place = document.getElementById("placeInput").value;
+  if (!place) return alert("Enter a place name");
 
-const URL = "https://script.google.com/macros/s/AKfycbwA7RKIz75-Mc4vfwgrc7u38ivZ8FO3VUfRo07Yeek5bzWBJTq0V85gVQNEOM77iBGlZg/exec";
+  // Get Latitude & Longitude
+  const geoRes = await fetch(
+    `https://nominatim.openstreetmap.org/search?format=json&q=${place}`
+  );
+  const geoData = await geoRes.json();
 
-
-function addAttendance() {
-  const date = document.getElementById("date").value;
-  const roll = document.getElementById("roll").value;
-  const status = document.getElementById("status").value;
-
-  if (!date || !roll) {
-    alert("Please fill all fields");
+  if (geoData.length === 0) {
+    alert("Place not found");
     return;
   }
 
-  fetch(URL, {
-    method: "POST",
-    body: JSON.stringify({ date, roll, status })
-  })
-  .then(() => {
-    alert("Attendance added");
-  })
-  .catch(err => {
-    alert("Error: " + err);
-  });
-}
+  const lat = geoData[0].lat;
+  const lon = geoData[0].lon;
 
-// VIEW ATTENDANCE
-function getAttendance() {
-  const roll = document.getElementById("checkRoll").value;
+  document.getElementById("placeName").innerText = place;
+  document.getElementById("lat").innerText = lat;
+  document.getElementById("lon").innerText = lon;
 
-  if (!roll) {
-    alert("Enter roll number");
-    return;
-  }
+  // Image from Unsplash (free)
+  document.getElementById("placeImage").src =
+    `https://source.unsplash.com/600x400/?${place}`;
 
-  fetch(URL + "?roll=" + roll)
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("output").innerHTML = `
-        <p>Total Days: ${data.total}</p>
-        <p>Present: ${data.present}</p>
-        <p>Absent: ${data.absent}</p>
-        <p>Off Days: ${data.off}</p>
-        <p><b>Attendance %: ${data.percent}</b></p>
-      `;
-    })
-    .catch(err => {
-      alert("Error: " + err);
-    });
+  // Wikipedia summary (flora & fauna info)
+  const wikiRes = await fetch(
+    `https://en.wikipedia.org/api/rest_v1/page/summary/${place}`
+  );
+  const wikiData = await wikiRes.json();
+
+  document.getElementById("floraFauna").innerText =
+    wikiData.extract || "No data available";
+
+  document.getElementById("result").style.display = "block";
 }
