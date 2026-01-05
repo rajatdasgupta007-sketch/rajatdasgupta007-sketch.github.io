@@ -1,41 +1,103 @@
+/* 🌍 GLOBAL */
 body {
-  font-family: Arial, sans-serif;
-  background: #eef6f8;
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(135deg, #0f766e, #0ea5e9);
+  min-height: 100vh;
   text-align: center;
-  padding: 20px;
+  color: #0f172a;
 }
 
+/* 🌎 MAIN TITLE */
 h1 {
-  color: #2c3e50;
+  color: #ecfeff;
+  margin-top: 20px;
+  letter-spacing: 1px;
 }
 
+/* 🔍 SEARCH BOX */
 .search-box {
-  margin: 20px;
+  margin: 25px auto;
 }
 
 input {
-  padding: 10px;
-  width: 250px;
+  padding: 12px;
+  width: 260px;
+  border-radius: 25px;
+  border: none;
+  outline: none;
+  font-size: 16px;
 }
 
 button {
-  padding: 10px 15px;
+  padding: 12px 20px;
+  margin-left: 10px;
+  border-radius: 25px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  font-size: 16px;
   cursor: pointer;
+  transition: 0.3s;
 }
 
+button:hover {
+  background: #16a34a;
+}
+
+/* 📦 RESULT CARD */
 #result {
-  margin-top: 20px;
-  background: white;
-  padding: 20px;
-  border-radius: 10px;
+  max-width: 520px;
+  margin: 30px auto;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.25);
   display: none;
 }
 
-/* ✅ IMAGE FIX */
+/* 🏞️ PLACE NAME */
+#placeName {
+  color: #0f766e;
+  margin-bottom: 10px;
+}
+
+/* 🖼️ IMAGE */
 img {
-  width: 320px;
-  max-width: 90%;
-  display: block;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 14px;
   margin: 15px auto;
-  border-radius: 8px;
+  display: block;
+}
+
+/* 📍 TEXT INFO */
+p {
+  font-size: 16px;
+  margin: 8px 0;
+}
+
+b {
+  color: #0369a1;
+}
+
+/* 🌿 FOOTER TEXT */
+#floraFauna {
+  margin-top: 10px;
+  color: #14532d;
+  font-size: 15px;
+}
+
+/* 📱 MOBILE FRIENDLY */
+@media (max-width: 600px) {
+  input {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+
+  button {
+    margin-left: 0;
+    width: 60%;
+  }
 }
