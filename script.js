@@ -1,16 +1,16 @@
 async function searchPlace() {
   const place = document.getElementById("placeInput").value.trim();
   if (!place) {
-    alert("Enter a place name");
+    alert("Please enter a place name");
     return;
   }
 
-  // --- LOCATION DATA ---
+  // ---------- FETCH LOCATION DATA ----------
   const geoURL = `https://nominatim.openstreetmap.org/search?format=json&q=${place}&limit=1`;
 
   const geoRes = await fetch(geoURL, {
     headers: {
-      "User-Agent": "GeoPortal/1.0"
+      "User-Agent": "GeoPortal-StudentProject"
     }
   });
 
@@ -26,21 +26,20 @@ async function searchPlace() {
   document.getElementById("lat").innerText = geoData[0].lat;
   document.getElementById("lon").innerText = geoData[0].lon;
 
-  // --- IMAGE FROM WIKIMEDIA (VERY RELIABLE) ---
-  const imageURL =
-    `https://commons.wikimedia.org/wiki/Special:FilePath/${place.replace(/ /g, "_")}.jpg`;
-
+  // ---------- PLACE IMAGE (WIKIMEDIA) ----------
   const img = document.getElementById("placeImage");
-  img.src = imageURL;
 
-  // Fallback image if not found
+  img.src = `https://upload.wikimedia.org/wikipedia/commons/8/80/${place.replace(/ /g, "_")}.jpg`;
+
   img.onerror = () => {
-    img.src = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+    img.src =
+      "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
   };
 
-  // --- INFO TEXT ---
+  // ---------- FLORA & FAUNA TEXT ----------
   document.getElementById("floraFauna").innerText =
-    "This region supports natural flora and fauna adapted to its climate and geography.";
+    "The region supports diverse flora and fauna influenced by its climate, terrain, and geographical location.";
 
+  // ---------- SHOW RESULT ----------
   document.getElementById("result").style.display = "block";
 }
