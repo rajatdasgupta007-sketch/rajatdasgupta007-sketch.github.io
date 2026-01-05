@@ -31,8 +31,11 @@ button {
   display: none;
 }
 
+/* ✅ IMAGE FIX */
 img {
-  width: 300px;
+  width: 320px;
+  max-width: 90%;
+  display: block;
+  margin: 15px auto;
   border-radius: 8px;
-  margin: 10px 0;
 }
