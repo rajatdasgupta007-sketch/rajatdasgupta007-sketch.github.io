@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Attendance System</title>
+  <meta charset="UTF-8">
+  <title>Geography Portal</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>Attendance Management</h1>
+  <h1>🌍 Geography Information Portal</h1>
 
-<a href="teacher.html">
-  <button>Open Attendance Panel</button>
-</a>
+  <div class="search-box">
+    <input type="text" id="placeInput" placeholder="Enter place name">
+    <button onclick="searchPlace()">Search</button>
+  </div>
 
+  <div id="result">
+    <h2 id="placeName"></h2>
+    <img id="placeImage" />
+    <p><b>Latitude:</b> <span id="lat"></span></p>
+    <p><b>Longitude:</b> <span id="lon"></span></p>
+    <p><b>About (Flora & Fauna):</b></p>
+    <p id="floraFauna"></p>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
