@@ -1,7 +1,7 @@
-// 🔴 PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE
+
 const URL = "https://script.google.com/macros/s/AKfycbwA7RKIz75-Mc4vfwgrc7u38ivZ8FO3VUfRo07Yeek5bzWBJTq0V85gVQNEOM77iBGlZg/exec";
 
-// ADD ATTENDANCE
+
 function addAttendance() {
   const date = document.getElementById("date").value;
   const roll = document.getElementById("roll").value;
