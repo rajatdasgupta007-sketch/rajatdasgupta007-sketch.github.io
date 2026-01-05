@@ -5,36 +5,42 @@ async function searchPlace() {
     return;
   }
 
-  // ---------- LOCATION DATA ----------
+  // --- LOCATION DATA ---
   const geoURL = `https://nominatim.openstreetmap.org/search?format=json&q=${place}&limit=1`;
 
   const geoRes = await fetch(geoURL, {
     headers: {
-      "User-Agent": "GeoPortal/1.0 (student project)"
+      "User-Agent": "GeoPortal/1.0"
     }
   });
 
   const geoData = await geoRes.json();
-
   if (geoData.length === 0) {
     alert("Place not found");
     return;
   }
 
-  const lat = geoData[0].lat;
-  const lon = geoData[0].lon;
+  document.getElementById("placeName").innerText =
+    geoData[0].display_name;
 
-  document.getElementById("placeName").innerText = geoData[0].display_name;
-  document.getElementById("lat").innerText = lat;
-  document.getElementById("lon").innerText = lon;
+  document.getElementById("lat").innerText = geoData[0].lat;
+  document.getElementById("lon").innerText = geoData[0].lon;
 
-  // ---------- IMAGE ----------
-  document.getElementById("placeImage").src =
-    `https://source.unsplash.com/600x400/?${place}`;
+  // --- IMAGE FROM WIKIMEDIA (VERY RELIABLE) ---
+  const imageURL =
+    `https://commons.wikimedia.org/wiki/Special:FilePath/${place.replace(/ /g, "_")}.jpg`;
 
-  // ---------- BASIC FLORA & FAUNA (STATIC + SAFE) ----------
+  const img = document.getElementById("placeImage");
+  img.src = imageURL;
+
+  // Fallback image if not found
+  img.onerror = () => {
+    img.src = "https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg";
+  };
+
+  // --- INFO TEXT ---
   document.getElementById("floraFauna").innerText =
-    "Flora and fauna vary based on climate and region. This area supports native plant species and wildlife adapted to local environmental conditions.";
+    "This region supports natural flora and fauna adapted to its climate and geography.";
 
   document.getElementById("result").style.display = "block";
 }
