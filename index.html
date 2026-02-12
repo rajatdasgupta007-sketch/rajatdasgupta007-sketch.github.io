@@ -1,39 +1,46 @@
+<?php
+// Handle Form Submission
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (!empty($_POST["message"])) {
+        // Sanitize input to prevent XSS
+        $message = htmlspecialchars($_POST["message"]);
+
+        // Save to file
+        file_put_contents("posts.txt", $message . "\n", FILE_APPEND);
+    }
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Geography Information Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+    <title>Anonymous Confession Wall</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <h1>🌍 Geography Information Portal</h1>
+<div class="container">
+    <h1>Anonymous Confession Wall</h1>
 
-  <div class="search-box">
-    <input type="text" id="placeInput" placeholder="Enter place name">
-    <button onclick="searchPlace()">Search</button>
-  </div>
+    <form method="POST">
+        <textarea name="message" placeholder="Write your confession or advice..." required></textarea>
+        <button type="submit">Post</button>
+    </form>
 
-  <div id="result">
-    <h2 id="placeName"></h2>
+    <h2>Recent Posts</h2>
 
-    <img id="placeImage" alt="Place Image">
-
-    <p><b>Latitude:</b> <span id="lat"></span></p>
-    <p><b>Longitude:</b> <span id="lon"></span></p>
-
-    <p><b>Country:</b> <span id="country"></span></p>
-    <p><b>State / Region:</b> <span id="state"></span></p>
-    <p><b>Place Type:</b> <span id="type"></span></p>
-    <p><b>Climate:</b> <span id="climate"></span></p>
-    <p><b>Elevation:</b> <span id="elevation"></span></p>
-
-    <p><b>Flora & Fauna:</b></p>
-    <p id="floraFauna"></p>
-  </div>
-
-  <script src="script.js"></script>
+    <div class="posts">
+        <?php
+        if (file_exists("posts.txt")) {
+            $posts = file("posts.txt");
+            $posts = array_reverse($posts); // Newest first
+            foreach ($posts as $post) {
+                echo "<div class='post'>" . $post . "</div>";
+            }
+        }
+        ?>
+    </div>
+</div>
 
 </body>
 </html>
